@@ -20,4 +20,4 @@ dependencies:
   - bundle install
 test:
  override:
-  - cucumber --tags @cadastro_sucesso
+  - cd cucumber; cucumber --tags @cadastro_sucesso
