@@ -1,29 +1,27 @@
-Dado(/^que eu acesse a página de Cadastro$/) do
+Dado(/^que eu acesse a pagina de cadastro$/) do
   visit "https://goo.gl/1VxoEh"
 end
 
 Quando(/^eu informar os campos obrigatórios$/) do
-  @senha = Faker::Base.numerify("inicial######")
-  select("Sr.", :from => 'gender-select')
-  find(:css, '#first-name-input').set(Faker::LordOfTheRings.character)
-  find(:css, '#last-name-input').set(Faker::LordOfTheRings.character)
-  find(:css, '#personal-identifier-input').set(Faker::CPF.numeric)
-  find(:css, '#street-input').set(Faker::Address.street_name)
-  find(:css, '#street-number-input').set(Faker::Base.numerify("###"))
-  find(:css, '#postal-code-input').set("05433001")
-  find(:css, '#city-input').set(Faker::LordOfTheRings.location)
-  find(:css, '#email-input').set(Faker::Internet.email('teste'))
-  find(:css, '#phone-number-input').set(Faker::Base.numerify("119#######"))
-  find(:css, '#password-input').set(@senha)
-  find(:css, '#password-confirmation-input').set(@senha)
+  @cadastro_groupon.genero.select(@genero)
+  @cadastro_groupon.primeiro_nome.set(@primeiro_nome)
+  @cadastro_groupon.sobrenome.set(@sobrenome)
+  @cadastro_groupon.cpf.set(@cpf)
+  @cadastro_groupon.rua.set(@rua)
+  @cadastro_groupon.numero_casa.set(@numero_casa)
+  @cadastro_groupon.cep.set(@cep)
+  @cadastro_groupon.cidade.set(@cidade)
+  @cadastro_groupon.email.set(@email)
+  @cadastro_groupon.telefone_opcional.set(@telefone_opcional)
+  @cadastro_groupon.senha.set(@senha)
+  @cadastro_groupon.confirmar_senha.set(@senha)
 end
 
-E(/^Clicar em cadastrar$/) do
- execute_script "jQuery('#terms-checkbox').click();"
- click_button 'Cadastro'
-
+E(/^clicar em cadastrar$/) do
+  execute_script "jQuery('#terms-checkbox').click();"
+  @cadastro_groupon.botao_cadastrar.click
 end
 
 Entao(/^o meu cadastro e efetuado com sucesso$/) do
-expect(page).to have_selector :css, '.flush-top'
+  expect(page).to have_selector :css, '.icon-arrow-down-large'
 end
